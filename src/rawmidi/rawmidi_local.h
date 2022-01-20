@@ -34,6 +34,7 @@ typedef struct {
 	int (*drain)(snd_rawmidi_t *rawmidi);
 	ssize_t (*write)(snd_rawmidi_t *rawmidi, const void *buffer, size_t size);
 	ssize_t (*read)(snd_rawmidi_t *rawmidi, void *buffer, size_t size);
+	ssize_t (*tread)(snd_rawmidi_t *rawmidi, struct timespec *tstamp, void *buffer, size_t size);
 } snd_rawmidi_ops_t;
 
 struct _snd_rawmidi {
@@ -42,12 +43,14 @@ struct _snd_rawmidi {
 	snd_rawmidi_type_t type;
 	snd_rawmidi_stream_t stream;
 	int mode;
+	int version;
 	int poll_fd;
 	const snd_rawmidi_ops_t *ops;
 	void *private_data;
 	size_t buffer_size;
 	size_t avail_min;
 	unsigned int no_active_sensing: 1;
+	int params_mode;
 };
 
 int snd_rawmidi_hw_open(snd_rawmidi_t **input, snd_rawmidi_t **output,

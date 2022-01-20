@@ -35,24 +35,23 @@ int tplg_get_integer(snd_config_t *n, int *val, int base)
 		err = snd_config_get_integer(n, &lval);
 		if (err < 0)
 			return err;
-		if (lval < INT_MIN || lval > INT_MAX)
-			return -ERANGE;
-		*val = lval;
-		return err;
+		goto __retval;
 	case SND_CONFIG_TYPE_STRING:
 		err = snd_config_get_string(n, &str);
 		if (err < 0)
 			return err;
-		errno = 0;
-		*val = strtol(str, NULL, base);
-		if (errno == ERANGE)
-			return -ERANGE;
-		if (errno && *val == 0)
-			return -EINVAL;
-		return 0;
+		err = safe_strtol_base(str, &lval, base);
+		if (err < 0)
+			return err;
+		goto __retval;
 	default:
 		return -EINVAL;
 	}
+  __retval:
+	if (lval < INT_MIN || lval > INT_MAX)
+		return -ERANGE;
+	*val = lval;
+	return 0;
 }
 
 /*

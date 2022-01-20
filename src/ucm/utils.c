@@ -780,6 +780,9 @@ int uc_mgr_card_open(snd_use_case_mgr_t *uc_mgr)
 	while (uc_mgr_card_find(ucm_card_assign)) {
 		ucm_card_assign++;
 		ucm_card_assign &= 0xffff;
+		/* avoid zero card instance number */
+		if (ucm_card_assign == 0)
+			ucm_card_assign++;
 		if (ucm_card_assign == prev) {
 			pthread_mutex_unlock(&ucm_cards_mutex);
 			return -ENOMEM;
@@ -818,7 +821,7 @@ const char *uc_mgr_alibcfg_by_device(snd_config_t **top, const char *name)
 		return NULL;
 	strncpy(buf, name + 4, 4);
 	buf[4] = '\0';
-	err = safe_strtol(buf, &card_num);
+	err = safe_strtol_base(buf, &card_num, 16);
 	if (err < 0 || card_num < 0 || card_num > 0xffff)
 		return NULL;
 	config = NULL;

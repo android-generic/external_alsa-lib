@@ -118,6 +118,15 @@ hw:soundwave,1,2
 hw:DEV=1,CARD=soundwave,SUBDEV=2
 \endcode
 
+\section read_mode Read mode
+
+Optionally, incoming rawmidi bytes can be marked with timestamps. The library hides
+the kernel implementation (linux kernel 5.14+) and exports
+the \link ::snd_rawmidi_tread() \endlink  function which returns the
+midi bytes marked with the identical timestamp in one iteration.
+
+The timestamping is available only on input streams.
+
 \section rawmidi_examples Examples
 
 The full featured examples with cross-links:
@@ -154,6 +163,8 @@ static int snd_rawmidi_params_default(snd_rawmidi_t *rawmidi, snd_rawmidi_params
 	params->buffer_size = page_size();
 	params->avail_min = 1;
 	params->no_active_sensing = 1;
+	params->mode = 0;
+	memset(params->reserved, 0, sizeof(params->reserved));
 	return 0;
 }
 
@@ -812,6 +823,95 @@ int snd_rawmidi_params_get_no_active_sensing(const snd_rawmidi_params_t *params)
 }
 
 /**
+ * \brief set read mode
+ * \param rawmidi RawMidi handle
+ * \param params pointer to snd_rawmidi_params_t structure
+ * \param val type of read_mode
+ * \return 0 on success, otherwise a negative error code.
+ *
+ * Notable error codes:
+ * -EINVAL - "val" is invalid
+ * -ENOTSUP - mode is not supported
+ *
+ */
+int snd_rawmidi_params_set_read_mode(const snd_rawmidi_t *rawmidi, snd_rawmidi_params_t *params, snd_rawmidi_read_mode_t val)
+{
+	unsigned int framing;
+	assert(rawmidi && params);
+
+	switch (val) {
+	case SND_RAWMIDI_READ_STANDARD:
+		framing = SNDRV_RAWMIDI_MODE_FRAMING_NONE;
+		break;
+	case SND_RAWMIDI_READ_TSTAMP:
+		if (rawmidi->ops->tread == NULL)
+			return -ENOTSUP;
+		framing = SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP;
+		break;
+	default:
+		return -EINVAL;
+	}
+
+	if (framing != SNDRV_RAWMIDI_MODE_FRAMING_NONE &&
+		(rawmidi->version < SNDRV_PROTOCOL_VERSION(2, 0, 2) || rawmidi->stream != SND_RAWMIDI_STREAM_INPUT))
+		return -ENOTSUP;
+	params->mode = (params->mode & ~SNDRV_RAWMIDI_MODE_FRAMING_MASK) | framing;
+	return 0;
+}
+
+/**
+ * \brief get current read mode
+ * \param params pointer to snd_rawmidi_params_t structure
+ * \return the current read mode (see enum)
+ */
+snd_rawmidi_read_mode_t snd_rawmidi_params_get_read_mode(const snd_rawmidi_params_t *params)
+{
+	unsigned int framing;
+
+	assert(params);
+	framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
+	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
+		return SND_RAWMIDI_READ_TSTAMP;
+	return SND_RAWMIDI_READ_STANDARD;
+}
+
+/**
+ * \brief sets clock type for tstamp type framing
+ * \param rawmidi RawMidi handle
+ * \param params pointer to snd_rawmidi_params_t structure
+ * \param val one of the SND_RAWMIDI_CLOCK_* constants
+ * \return 0 on success, otherwise a negative error code.
+ *
+ * Notable error codes:
+ * -EINVAL - "val" is invalid
+ * -ENOTSUP - Kernel is too old to support framing.
+ *
+ */
+int snd_rawmidi_params_set_clock_type(const snd_rawmidi_t *rawmidi, snd_rawmidi_params_t *params, snd_rawmidi_clock_t val)
+{
+	assert(rawmidi && params);
+	if (val > SNDRV_RAWMIDI_MODE_CLOCK_MASK >> SNDRV_RAWMIDI_MODE_CLOCK_SHIFT)
+		return -EINVAL;
+	if (val != SNDRV_RAWMIDI_MODE_CLOCK_NONE &&
+		(rawmidi->version < SNDRV_PROTOCOL_VERSION(2, 0, 2) || rawmidi->stream != SND_RAWMIDI_STREAM_INPUT))
+		return -ENOTSUP;
+	params->mode = (params->mode & ~SNDRV_RAWMIDI_MODE_CLOCK_MASK) + (val << SNDRV_RAWMIDI_MODE_CLOCK_SHIFT);
+	return 0;
+}
+
+/**
+ * \brief get current clock type (for tstamp type framing)
+ * \param params pointer to snd_rawmidi_params_t structure
+ * \return the current clock type (one of the SND_RAWMIDI_CLOCK_* constants)
+ */
+snd_rawmidi_clock_t snd_rawmidi_params_get_clock_type(const snd_rawmidi_params_t *params)
+{
+	assert(params);
+	return (params->mode & SNDRV_RAWMIDI_MODE_CLOCK_MASK) >> SNDRV_RAWMIDI_MODE_CLOCK_SHIFT;
+}
+
+
+/**
  * \brief set parameters about rawmidi stream
  * \param rawmidi RawMidi handle
  * \param params pointer to a snd_rawmidi_params_t structure to be filled
@@ -828,6 +928,7 @@ int snd_rawmidi_params(snd_rawmidi_t *rawmidi, snd_rawmidi_params_t * params)
 	rawmidi->buffer_size = params->buffer_size;
 	rawmidi->avail_min = params->avail_min;
 	rawmidi->no_active_sensing = params->no_active_sensing;
+	rawmidi->params_mode = rawmidi->version < SNDRV_PROTOCOL_VERSION(2, 0, 2) ? 0 : params->mode;
 	return 0;
 }
 
@@ -844,6 +945,7 @@ int snd_rawmidi_params_current(snd_rawmidi_t *rawmidi, snd_rawmidi_params_t *par
 	params->buffer_size = rawmidi->buffer_size;
 	params->avail_min = rawmidi->avail_min;
 	params->no_active_sensing = rawmidi->no_active_sensing;
+	params->mode = rawmidi->params_mode;
 	return 0;
 }
 
@@ -987,11 +1089,34 @@ ssize_t snd_rawmidi_write(snd_rawmidi_t *rawmidi, const void *buffer, size_t siz
  * \param rawmidi RawMidi handle
  * \param buffer buffer to store the input MIDI bytes
  * \param size input buffer size in bytes
+ * \retval count of MIDI bytes otherwise a negative error code
  */
 ssize_t snd_rawmidi_read(snd_rawmidi_t *rawmidi, void *buffer, size_t size)
 {
 	assert(rawmidi);
 	assert(rawmidi->stream == SND_RAWMIDI_STREAM_INPUT);
+	if ((rawmidi->params_mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK) == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
+		size &= ~(sizeof(struct snd_rawmidi_framing_tstamp) - 1);
 	assert(buffer || size == 0);
 	return (rawmidi->ops->read)(rawmidi, buffer, size);
+}
+
+/**
+ * \brief read MIDI bytes from MIDI stream with timestamp
+ * \param rawmidi RawMidi handle
+ * \param[out] tstamp timestamp for the returned MIDI bytes
+ * \param buffer buffer to store the input MIDI bytes
+ * \param size input buffer size in bytes
+ * \retval count of MIDI bytes otherwise a negative error code
+ */
+ssize_t snd_rawmidi_tread(snd_rawmidi_t *rawmidi, struct timespec *tstamp, void *buffer, size_t size)
+{
+	assert(rawmidi);
+	assert(rawmidi->stream == SND_RAWMIDI_STREAM_INPUT);
+	assert(buffer || size == 0);
+	if ((rawmidi->params_mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK) == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
+		return -EINVAL;
+	if (rawmidi->ops->tread == NULL)
+		return -ENOTSUP;
+	return (rawmidi->ops->tread)(rawmidi, tstamp, buffer, size);
 }
