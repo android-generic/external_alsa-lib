@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
-AC_INIT(alsa-lib, 1.2.6.1)
+AC_INIT(alsa-lib, 1.2.7)
 
 AC_CONFIG_SRCDIR([src/control/control.c])
 AC_CONFIG_MACRO_DIR([m4])
@@ -233,6 +233,19 @@ fi
 ALSA_DEPLIBS=""
 if test "$softfloat" != "yes"; then
   ALSA_DEPLIBS="-lm"
+fi
+
+dnl Check for scandir64
+AC_MSG_CHECKING(for LFS calls)
+AC_TRY_LINK([#include <dirent.h>],
+    [struct dirent64 a; ],
+    [have_lfs=yes],
+    [have_lfs=no])
+if test "$have_lfs" = "yes"; then
+  AC_MSG_RESULT(yes)
+  AC_DEFINE([HAVE_LFS], 1, [Have LFS])
+else
+  AC_MSG_RESULT(no)
 fi
 
 dnl Check for libdl
