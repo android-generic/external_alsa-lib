@@ -73,6 +73,9 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
+/* Have LFS */
+#define HAVE_LFS 1
+
 /* Have libdl */
 #define HAVE_LIBDL 1
 
