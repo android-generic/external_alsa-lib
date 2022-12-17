@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
-AC_INIT(alsa-lib, 1.2.7.2)
+AC_INIT(alsa-lib, 1.2.8)
 
 AC_CONFIG_SRCDIR([src/control/control.c])
 AC_CONFIG_MACRO_DIR([m4])
@@ -335,7 +335,7 @@ else
 fi
 
 dnl Check for headers
-AC_CHECK_HEADERS([endian.h sys/endian.h sys/shm.h])
+AC_CHECK_HEADERS([endian.h sys/endian.h sys/shm.h malloc.h])
 
 dnl Check for resmgr support...
 AC_MSG_CHECKING(for resmgr support)
@@ -764,8 +764,9 @@ AC_OUTPUT(Makefile doc/Makefile doc/pictures/Makefile doc/doxygen.cfg \
 dnl Create asoundlib.h dynamically according to configure options
 echo "Creating asoundlib.h..."
 cp "$srcdir"/include/asoundlib-head.h include/asoundlib.h
+if test "$ac_cv_header_sys_endian_h" != "yes"; then
 test "$ac_cv_header_endian_h" = "yes" && echo "#include <endian.h>" >> include/asoundlib.h
-if test "$ac_cv_header_sys_endian_h" = "yes"; then
+else
 cat >> include/asoundlib.h <<EOF
 #include <sys/endian.h>
 #ifndef __BYTE_ORDER

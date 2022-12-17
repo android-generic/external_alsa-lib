@@ -1481,8 +1481,8 @@ const char *parse_open_variables(snd_use_case_mgr_t *uc_mgr, const char *name)
 			goto skip;
 	}
 
-	snd_config_delete(cfg);
 skip:
+	snd_config_delete(cfg);
 	return end + 3;
 }
 
@@ -1518,7 +1518,7 @@ int snd_use_case_mgr_open(snd_use_case_mgr_t **uc_mgr,
 		mgr->suppress_nodev_errors = 1;
 	}
 
-	if (card_name[0] == '<' && card_name[1] == '<' && card_name[2] == '<')
+	if (card_name && card_name[0] == '<' && card_name[1] == '<' && card_name[2] == '<')
 		card_name = parse_open_variables(mgr, card_name);
 
 	err = uc_mgr_card_open(mgr);
