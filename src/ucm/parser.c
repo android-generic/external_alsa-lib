@@ -1422,15 +1422,16 @@ static int parse_modifier(snd_use_case_mgr_t *uc_mgr,
 			}
 		}
 
-		if (strcmp(id, "ConflictingDevice") == 0) {
-			err = parse_device_list(uc_mgr, &modifier->dev_list,
-						DEVLIST_CONFLICTING, n);
-			if (err < 0) {
-				uc_error("error: failed to parse conflicting"
-					" device list");
-				return err;
-			}
-		}
+		// HACK: Bypass ConflictingDevice
+		// if (strcmp(id, "ConflictingDevice") == 0) {
+		// 	err = parse_device_list(uc_mgr, &modifier->dev_list,
+		// 				DEVLIST_CONFLICTING, n);
+		// 	if (err < 0) {
+		// 		uc_error("error: failed to parse conflicting"
+		// 			" device list");
+		// 		return err;
+		// 	}
+		// }
 
 		if (strcmp(id, "EnableSequence") == 0) {
 			err = parse_sequence(uc_mgr, &modifier->enable_list, n);
@@ -1567,15 +1568,16 @@ static int parse_device(snd_use_case_mgr_t *uc_mgr,
 			}
 		}
 
-		if (strcmp(id, "ConflictingDevice") == 0) {
-			err = parse_device_list(uc_mgr, &device->dev_list,
-						DEVLIST_CONFLICTING, n);
-			if (err < 0) {
-				uc_error("error: failed to parse conflicting"
-					" device list");
-				return err;
-			}
-		}
+		// HACK: Bypass ConflictingDevice
+		// if (strcmp(id, "ConflictingDevice") == 0) {
+		// 	err = parse_device_list(uc_mgr, &device->dev_list,
+		// 				DEVLIST_CONFLICTING, n);
+		// 	if (err < 0) {
+		// 		uc_error("error: failed to parse conflicting"
+		// 			" device list");
+		// 		return err;
+		// 	}
+		// }
 
 		if (strcmp(id, "EnableSequence") == 0) {
 			uc_dbg("EnableSequence");
