@@ -215,7 +215,8 @@ range, thus you may get the significant bits for linear samples via
 #snd_pcm_hw_params_get_sbits() function. The example: ICE1712
 chips support 32-bit sample processing, but low byte is ignored (playback)
 or zero (capture). The function snd_pcm_hw_params_get_sbits()
-returns 24 in this case.
+returns 24 in this case. The significant bits are related to the usable
+sample bits (width) not the physical sample space.
 
 \section alsa_transfers ALSA transfers
 
@@ -493,8 +494,8 @@ software parameter.
 There are two functions allowing link multiple streams together. In the
 case, the linking means that all operations are synchronized. Because the
 drivers cannot guarantee the synchronization (sample resolution) on hardware
-lacking this feature, the #snd_pcm_info_get_sync() function
-returns synchronization ID - #snd_pcm_sync_id_t, which is equal
+lacking this feature, the #snd_pcm_hw_params_get_sync() function
+returns 16-byte synchronization ID, which is equal
 for hardware synchronized streams. When the #snd_pcm_link()
 function is called, all operations managing the stream state for these two
 streams are joined. The opposite function is #snd_pcm_unlink().
@@ -776,6 +777,10 @@ int snd_pcm_close(snd_pcm_t *pcm)
 {
 	int res = 0, err;
 	assert(pcm);
+	while (!list_empty(&pcm->async_handlers)) {
+		snd_async_handler_t *h = list_entry(pcm->async_handlers.next, snd_async_handler_t, hlist);
+		snd_async_del_handler(h);
+	}
 	if (pcm->setup && !pcm->donot_close) {
 		snd_pcm_drop(pcm);
 		err = snd_pcm_hw_free(pcm);
@@ -784,10 +789,6 @@ int snd_pcm_close(snd_pcm_t *pcm)
 	}
 	if (pcm->mmap_channels)
 		snd_pcm_munmap(pcm);
-	while (!list_empty(&pcm->async_handlers)) {
-		snd_async_handler_t *h = list_entry(pcm->async_handlers.next, snd_async_handler_t, hlist);
-		snd_async_del_handler(h);
-	}
 	if (pcm->ops->close)
 		err = pcm->ops->close(pcm->op_arg);
 	else
@@ -3903,7 +3904,16 @@ int snd_pcm_hw_params_get_rate_numden(const snd_pcm_hw_params_t *params,
 /**
  * \brief Get sample resolution info from a configuration space
  * \param params Configuration space
- * \return signification bits in sample otherwise a negative error code if the info is not available
+ * \return sample resolution (in bits) otherwise a negative error code if the info is not available
+ *
+ * For linear formats, this function returns sample resolution -
+ * used bits starting from the first usable significant bit defined by
+ * the format (e.g. bit 31 for S32_LE format or bit 23 for S24_LE format -
+ * starting from bit zero). Application may use full sample bit range defined
+ * by the format, but additional bits (outside this sample resolution) are
+ * stripped (not processed).
+ *
+ * For non-linear formats, this value may have a special meaning which may be defined in future.
  *
  * This function should only be called when the configuration space
  * contains a single configuration. Call #snd_pcm_hw_params to choose
@@ -3936,6 +3946,25 @@ int snd_pcm_hw_params_get_fifo_size(const snd_pcm_hw_params_t *params)
 		return -EINVAL;
 	}
 	return params->fifo_size;
+}
+
+/**
+ * \brief Get hardware synchronization ID from a PCM info container
+ * \param params Configuration space
+ * \return 16-byte synchronization ID (use #SND_PCM_HW_PARAMS_SYNC_SIZE)
+ *
+ * This synchronization ID determines the similar clocks for the
+ * PCM stream between multiple devices (including different cards).
+ * "All zeros" means "not set". The contents of the ID can be used
+ * only for a comparison with the contents of another ID returned
+ * from this function. Applications should not do a comparison with
+ * hard-coded values, because the implementation generating such
+ * synchronization IDs may be changed in future.
+ */
+const unsigned char *snd_pcm_hw_params_get_sync(const snd_pcm_hw_params_t *params)
+{
+	assert(params);
+	return params->sync;
 }
 
 /**
@@ -7322,7 +7351,7 @@ unsigned int snd_pcm_info_get_subdevices_avail(const snd_pcm_info_t *obj)
 }
 
 /**
- * \brief Get hardware synchronization ID from a PCM info container
+ * \brief (DEPRECATED) Get hardware synchronization ID from a PCM info container
  * \param obj PCM info container
  * \return hardware synchronization ID
  */
@@ -7330,9 +7359,12 @@ snd_pcm_sync_id_t snd_pcm_info_get_sync(const snd_pcm_info_t *obj)
 {
 	snd_pcm_sync_id_t res;
 	assert(obj);
-	memcpy(&res, &obj->sync, sizeof(res));
+	bzero(&res, sizeof(res));
 	return res;
 }
+#ifndef DOC_HIDDEN
+link_warning(snd_pcm_info_get_sync, "Warning: snd_pcm_info_get_sync is deprecated, consider to use snd_pcm_hw_params_get_sync");
+#endif
 
 /**
  * \brief Set wanted device inside a PCM info container (see #snd_ctl_pcm_info)

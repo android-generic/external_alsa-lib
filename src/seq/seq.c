@@ -490,6 +490,21 @@ the buffer is flushed by #snd_seq_drain_output() call.
 You can schedule the event in a certain queue so that the tempo
 change happens at the scheduled time, too.
 
+The tempo is set as default in microsecond unit as defined for
+Standard MIDI Format 1.  But since the value in MIDI2 Set Tempo message
+is based on 10-nanosecand unit, sequencer queue also allows to set up
+in 10-nanosecond unit.  For that, change the tempo-base value in
+#snd_seq_queue_tempo_t to 10 via #snd_seq_queue_tempo_set_tempo_base()
+along with the 10-nanobased tempo value.  The default tempo base is 1000,
+i.e. 1 microsecond.
+Currently the API supports only either 0, 10 or 1000 as the tempo-base
+(where 0 is treated as 1000).
+
+The older kernel might not support the different tempo-base, and setting a
+different value from 1000 would fail.  The application may heck the
+availability of tempo-base change via #snd_seq_has_queue_tempo_base() function
+beforehand, and re-calculate in microsecond unit as fallback.
+
 \subsection seq_ev_start Starting and stopping a queue
 
 To start, stop, or continue a queue, you need to send a queue-control
@@ -775,6 +790,67 @@ void event_filter(snd_seq_t *seq, snd_seq_event_t *ev)
 }
 \endcode
 
+\section seq_midi2 MIDI 2.0 and UMP
+
+\subsection seq_midi2_extension Extension for UMP
+
+The recent extension of ALSA sequencer is the support for MIDI 2.0 and
+UMP (Universal MIDI Packet) handling.
+
+A sequencer client is opened as usual with #snd_seq_open().
+Then the application can switch to UMP mode via
+#snd_seq_set_client_midi_version() (or #snd_seq_client_info_set_midi_version()
+and #snd_seq_set_client_info() combo).
+For running in UMP MIDI 1.0 protocol, pass #SND_SEQ_CLIENT_UMP_MIDI_1_0,
+and for UMP MIDI 2.0 protocol, pass #SND_SEQ_CLIENT_UMP_MIDI_2_0, respectively.
+
+In either UMP mode, we use #snd_seq_ump_event_t for sequencer event records
+instead of #snd_seq_event_t due to the lack of the data payload size in the
+latter type.  #snd_seq_ump_event_t contains the array of 32bit int as its
+data payload for UMP, defined as a union of the existing data payload of
+#snd_seq_event_data_t.  Other than the extended data payload, all other fields
+are identical with #snd_seq_event_t.
+
+There are corresponding API helpers for #snd_seq_ump_event_t, such as
+#snd_seq_ump_event_input() and #snd_seq_ump_event_input().
+Most of macros such as #snd_seq_ev_set_dest() can be used for both
+#snd_seq_event_t and #snd_seq_ump_event_t types since they are C-macro
+without explicit type checks.
+
+When a standard MIDI event (such as note-on or channel control) is sent to a
+UMP sequencer client, it's automatically translated to a UMP packet embedded
+in #snd_seq_ump_event_t.  Ditto about sending from a UMP sequencer client to
+a legacy sequencer client; the UMP event is translated to an old-type event
+like #SND_SEQ_EVENT_NOTEON type automatically, too.
+The translation between UMP MIDI 1.0  and MIDI 2.0 is done in ALSA core
+as well.  That is, from the application POV, connections are pretty seamless,
+and applications can keep running just like before, no matter whether the
+target is UMP or not.
+
+For encoding and decoding a UMP packet data, there are structs and macros
+defined in sound/ump_msg.h.
+
+MIDI 2.0 devices provide extra information as UMP Endpoint and UMP Function
+Block information.  Those information can be obtained via
+#snd_seq_get_ump_endpoint_info() and #snd_seq_get_ump_block_info() from a
+sequencer client.
+
+\subsection seq_midi2_virtual_ump Creation of UMP Virtual Endpoint and Function Blocks
+
+For making it easier to create a virtual MIDI 2.0 device in user-space,
+there are a couple of new API functions.  For creating a UMP Endpoint in an
+application, call snd_seq_create_ump_endpoint() with a properly filled
+#snd_ump_endpoint_info data.  Usually it should be called right after
+#snd_seq_open() call.  The call of #snd_seq_create_ump_endpoint() switches
+to the corresponding MIDI protocol, and you don't need to call
+#snd_seq_set_client_midi_version().  It will create a sequencer port
+corresponding to UMP Endpoint (named as "MIDI 2.0") and sequencer ports
+for the UMP Groups, too.
+
+For creating a UMP Function Block, call snd_seq_create_ump_block() with a
+properly filled #snd_ump_block_info data.  This will update the corresponding
+sequencer ports accordingly, too.
+
 */
 
 #include "seq_local.h"
@@ -1042,7 +1118,8 @@ int _snd_seq_open_lconf(snd_seq_t **seqp, const char *name,
  */
 int snd_seq_close(snd_seq_t *seq)
 {
-	int err;
+	int i, err;
+
 	assert(seq);
 	err = seq->ops->close(seq);
 	if (seq->dl_handle)
@@ -1051,6 +1128,9 @@ int snd_seq_close(snd_seq_t *seq)
 	free(seq->ibuf);
 	free(seq->tmpbuf);
 	free(seq->name);
+	free(seq->ump_ep);
+	for (i = 0; i < 16; i++)
+		free(seq->ump_blks[i]);
 	free(seq);
 	return err;
 }
@@ -2352,6 +2432,19 @@ int snd_seq_port_info_get_ump_group(const snd_seq_port_info_t *info)
 }
 
 /**
+ * \brief Get the status of the optional MIDI 1.0 port in MIDI 2.0 UMP Endpoint
+ * \param info port_info container
+ * \return 1 if it's an optional MIDI 1.0 port in MIDI 2.0 UMP Endpoint
+ *
+ * \sa snd_seq_get_port_info(), snd_seq_port_info_set_ump_is_midi1()
+ */
+int snd_seq_port_info_get_ump_is_midi1(const snd_seq_port_info_t *info)
+{
+	assert(info);
+	return !!(info->flags & SNDRV_SEQ_PORT_FLG_IS_MIDI1);
+}
+
+/**
  * \brief Set the client id of a port_info container
  * \param info port_info container
  * \param client client id
@@ -2553,6 +2646,22 @@ void snd_seq_port_info_set_ump_group(snd_seq_port_info_t *info, int ump_group)
 {
 	assert(info);
 	info->ump_group = ump_group;
+}
+
+/**
+ * \brief Set the optional MIDI 1.0 port in MIDI 2.0 UMP Endpoint
+ * \param info port_info container
+ * \param is_midi1 non-zero for MIDI 1.0 port in MIDI 2.0 EP
+ *
+ * \sa snd_seq_get_port_info(), snd_seq_port_info_get_ump_is_midi1()
+ */
+void snd_seq_port_info_set_ump_is_midi1(snd_seq_port_info_t *info, int is_midi1)
+{
+	assert(info);
+	if (is_midi1)
+		info->flags |= SNDRV_SEQ_PORT_FLG_IS_MIDI1;
+	else
+		info->flags &= ~SNDRV_SEQ_PORT_FLG_IS_MIDI1;
 }
 
 /**
@@ -3814,6 +3923,19 @@ unsigned int snd_seq_queue_tempo_get_skew_base(const snd_seq_queue_tempo_t *info
 }
 
 /**
+ * \brief Get the tempo base of a queue_status container
+ * \param info queue_status container
+ * \return tempo base time in nsec unit
+ *
+ * \sa snd_seq_get_queue_tempo()
+ */
+unsigned int snd_seq_queue_tempo_get_tempo_base(const snd_seq_queue_tempo_t *info)
+{
+	assert(info);
+	return info->tempo_base;
+}
+
+/**
  * \brief Set the tempo of a queue_status container
  * \param info queue_status container
  * \param tempo tempo value
@@ -3869,6 +3991,21 @@ void snd_seq_queue_tempo_set_skew_base(snd_seq_queue_tempo_t *info, unsigned int
 }
 
 /**
+ * \brief Set the tempo base of a queue_status container
+ * \param info queue_status container
+ * \param tempo_base tempo base time in nsec unit
+ *
+ * \sa snd_seq_get_queue_tempo()
+ */
+void snd_seq_queue_tempo_set_tempo_base(snd_seq_queue_tempo_t *info, unsigned int tempo_base)
+{
+	assert(info);
+	if (!tempo_base)
+		tempo_base = 1000;
+	info->tempo_base = tempo_base;
+}
+
+/**
  * \brief obtain the current tempo of the queue
  * \param seq sequencer handle
  * \param q queue id to be queried
@@ -3897,10 +4034,25 @@ int snd_seq_get_queue_tempo(snd_seq_t *seq, int q, snd_seq_queue_tempo_t * tempo
 int snd_seq_set_queue_tempo(snd_seq_t *seq, int q, snd_seq_queue_tempo_t * tempo)
 {
 	assert(seq && tempo);
+	if (!seq->has_queue_tempo_base &&
+	    tempo->tempo_base && tempo->tempo_base != 1000)
+		return -EINVAL;
 	tempo->queue = q;
 	return seq->ops->set_queue_tempo(seq, tempo);
 }
 
+/**
+ * \brief inquiry the support of tempo base change
+ * \param seq sequencer handle
+ * \return 1 if the client supports the tempo base change, 0 if not
+ *
+ * \sa snd_seq_get_queue_tempo()
+ */
+int snd_seq_has_queue_tempo_base(snd_seq_t *seq)
+{
+	assert(seq);
+	return seq->has_queue_tempo_base;
+}
 
 /*----------------------------------------------------------------*/
 

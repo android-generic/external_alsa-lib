@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
-AC_INIT(alsa-lib, 1.2.11)
+AC_INIT(alsa-lib, 1.2.13)
 
 AC_CONFIG_SRCDIR([src/control/control.c])
 AC_CONFIG_MACRO_DIR([m4])
@@ -67,6 +67,15 @@ cat <<EOF
   Please, do not try to compile static and shared libraries together.
   See INSTALL file for more details (do not use --enable-shared=yes with
   --enable-static=yes).
+EOF
+  exit 1
+fi
+
+dnl Do not use --with-pic for shared libraries (consider to use PIE)
+if test "$enable_static" = "yes" -a "$pic_mode" = "yes"; then
+cat <<EOF
+  Please, do not enable PIC (--with-pic) for static library. Consider
+  to remove this option or use PIE flags.
 EOF
   exit 1
 fi
@@ -641,6 +650,9 @@ if test "$build_pcm_mulaw" = "yes"; then
 fi
 if test "$build_pcm_alaw" = "yes"; then
   AC_DEFINE([BUILD_PCM_PLUGIN_ALAW], "1", [Build PCM alaw plugin])
+fi
+if test "$build_pcm_iec958" = "yes"; then
+  AC_DEFINE([BUILD_PCM_PLUGIN_IEC958], "1", [Build PCM iec958 plugin])
 fi
 if test "$build_pcm_mmap_emul" = "yes"; then
   AC_DEFINE([BUILD_PCM_PLUGIN_MMAP_EMUL], "1", [Build PCM mmap-emul plugin])

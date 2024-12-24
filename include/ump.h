@@ -13,6 +13,12 @@
 extern "C" {
 #endif
 
+/**
+ *  \defgroup RawMidi RawMidi Interface
+ *  The RawMidi Interface. See \ref rawmidi page for more details.
+ *  \{
+ */
+
 /** UMP (Endpoint) RawMIDI device */
 typedef struct _snd_ump snd_ump_t;
 /** UMP Endpoint information container */
@@ -69,6 +75,9 @@ enum _snd_ump_direction {
 /** Bit flag for JRTS in Receive */
 #define SND_UMP_EP_INFO_PROTO_JRTS_RX		0x0002
 
+/** Default version passed to UMP Endpoint info */
+#define SND_UMP_EP_INFO_DEFAULT_VERSION		0x0101
+
 size_t snd_ump_endpoint_info_sizeof(void);
 /** \hideinitializer
  * \brief allocate an invalid #snd_ump_endpoint_info_t using standard alloca
@@ -77,6 +86,7 @@ size_t snd_ump_endpoint_info_sizeof(void);
 #define snd_ump_endpoint_info_alloca(ptr) __snd_alloca(ptr, snd_ump_endpoint_info)
 int snd_ump_endpoint_info_malloc(snd_ump_endpoint_info_t **info);
 void snd_ump_endpoint_info_free(snd_ump_endpoint_info_t *info);
+void snd_ump_endpoint_info_clear(snd_ump_endpoint_info_t *info);
 void snd_ump_endpoint_info_copy(snd_ump_endpoint_info_t *dst, const snd_ump_endpoint_info_t *src);
 int snd_ump_endpoint_info_get_card(const snd_ump_endpoint_info_t *info);
 int snd_ump_endpoint_info_get_device(const snd_ump_endpoint_info_t *info);
@@ -92,6 +102,20 @@ const unsigned char *snd_ump_endpoint_info_get_sw_revision(const snd_ump_endpoin
 const char *snd_ump_endpoint_info_get_name(const snd_ump_endpoint_info_t *info);
 const char *snd_ump_endpoint_info_get_product_id(const snd_ump_endpoint_info_t *info);
 int snd_ump_endpoint_info(snd_ump_t *ump, snd_ump_endpoint_info_t *info);
+
+void snd_ump_endpoint_info_set_card(snd_ump_endpoint_info_t *info, unsigned int card);
+void snd_ump_endpoint_info_set_device(snd_ump_endpoint_info_t *info, unsigned int device);
+void snd_ump_endpoint_info_set_flags(snd_ump_endpoint_info_t *info, unsigned int flags);
+void snd_ump_endpoint_info_set_protocol_caps(snd_ump_endpoint_info_t *info, unsigned int caps);
+void snd_ump_endpoint_info_set_protocol(snd_ump_endpoint_info_t *info, unsigned int protocols);
+void snd_ump_endpoint_info_set_num_blocks(snd_ump_endpoint_info_t *info, unsigned int num_blocks);
+void snd_ump_endpoint_info_set_version(snd_ump_endpoint_info_t *info, unsigned int version);
+void snd_ump_endpoint_info_set_manufacturer_id(snd_ump_endpoint_info_t *info, unsigned int id);
+void snd_ump_endpoint_info_set_family_id(snd_ump_endpoint_info_t *info, unsigned int id);
+void snd_ump_endpoint_info_set_model_id(snd_ump_endpoint_info_t *info, unsigned int id);
+void snd_ump_endpoint_info_set_sw_revision(snd_ump_endpoint_info_t *info, const unsigned char *id);
+void snd_ump_endpoint_info_set_name(snd_ump_endpoint_info_t *info, const char *name);
+void snd_ump_endpoint_info_set_product_id(snd_ump_endpoint_info_t *info, const char *id);
 
 /** Bit flag for MIDI 1.0 port w/o restrict in UMP Block info flags */
 #define SND_UMP_BLOCK_IS_MIDI1		(1U << 0)
@@ -110,6 +134,9 @@ enum _snd_ump_block_ui_hint {
 	SND_UMP_BLOCK_UI_HINT_BOTH =		0x03,
 };
 
+/** Default MIDI CI version passed to UMP Block info */
+#define SND_UMP_BLOCK_INFO_DEFAULT_MIDI_CI_VERSION	0x01
+
 size_t snd_ump_block_info_sizeof(void);
 /** \hideinitializer
  * \brief allocate an invalid #snd_ump_block_info_t using standard alloca
@@ -118,11 +145,11 @@ size_t snd_ump_block_info_sizeof(void);
 #define snd_ump_block_info_alloca(ptr) __snd_alloca(ptr, snd_ump_block_info)
 int snd_ump_block_info_malloc(snd_ump_block_info_t **info);
 void snd_ump_block_info_free(snd_ump_block_info_t *info);
+void snd_ump_block_info_clear(snd_ump_block_info_t *info);
 void snd_ump_block_info_copy(snd_ump_block_info_t *dst, const snd_ump_block_info_t *src);
 int snd_ump_block_info_get_card(const snd_ump_block_info_t *info);
 int snd_ump_block_info_get_device(const snd_ump_block_info_t *info);
 unsigned int snd_ump_block_info_get_block_id(const snd_ump_block_info_t *info);
-void snd_ump_block_info_set_block_id(snd_ump_block_info_t *info, unsigned int id);
 unsigned int snd_ump_block_info_get_active(const snd_ump_block_info_t *info);
 unsigned int snd_ump_block_info_get_flags(const snd_ump_block_info_t *info);
 unsigned int snd_ump_block_info_get_direction(const snd_ump_block_info_t *info);
@@ -133,6 +160,21 @@ unsigned int snd_ump_block_info_get_sysex8_streams(const snd_ump_block_info_t *i
 unsigned int snd_ump_block_info_get_ui_hint(const snd_ump_block_info_t *info);
 const char *snd_ump_block_info_get_name(const snd_ump_block_info_t *info);
 int snd_ump_block_info(snd_ump_t *ump, snd_ump_block_info_t *info);
+
+void snd_ump_block_info_set_card(snd_ump_block_info_t *info, unsigned int card);
+void snd_ump_block_info_set_device(snd_ump_block_info_t *info, unsigned int device);
+void snd_ump_block_info_set_block_id(snd_ump_block_info_t *info, unsigned int id);
+void snd_ump_block_info_set_active(snd_ump_block_info_t *info, unsigned int active);
+void snd_ump_block_info_set_flags(snd_ump_block_info_t *info, unsigned int flags);
+void snd_ump_block_info_set_direction(snd_ump_block_info_t *info, unsigned int direction);
+void snd_ump_block_info_set_first_group(snd_ump_block_info_t *info, unsigned int first_group);
+void snd_ump_block_info_set_num_groups(snd_ump_block_info_t *info, unsigned int num_groups);
+void snd_ump_block_info_set_midi_ci_version(snd_ump_block_info_t *info, unsigned int version);
+void snd_ump_block_info_set_sysex8_streams(snd_ump_block_info_t *info, unsigned int streams);
+void snd_ump_block_info_set_ui_hint(snd_ump_block_info_t *info, unsigned int hint);
+void snd_ump_block_info_set_name(snd_ump_block_info_t *info, const char *name);
+
+/** \} */
 
 #ifdef __cplusplus
 }

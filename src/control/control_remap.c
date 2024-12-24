@@ -1228,10 +1228,10 @@ child controls to one or split one control to more.
 
 \code
 ctl.name {
-	type remap              # Route & Volume conversion PCM
-	child STR               # Slave name
+	type remap              # Remap controls
+	child STR               # Child name
 	# or
-	child {                 # Slave definition
+	child {                 # Child definition
 		type STR
 		...
 	}
@@ -1282,7 +1282,7 @@ ctl.name {
  * \param handlep Returns created control handle
  * \param name Name of control
  * \param root Root configuration node
- * \param conf Configuration node with Route & Volume PCM description
+ * \param conf Configuration node with control remap description
  * \param mode Control handle mode
  * \retval zero on success otherwise a negative error code
  * \warning Using of this function might be dangerous in the sense
