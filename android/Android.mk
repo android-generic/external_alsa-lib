@@ -19,6 +19,7 @@ LOCAL_CFLAGS := -DPIC -Wno-absolute-value -Wno-address-of-packed-member \
 	-Wno-missing-braces -Wno-missing-field-initializers \
 	-Wno-pointer-arith -Wno-pointer-bool-conversion -Wno-sign-compare -Wno-unused-function \
 	-Wno-unused-const-variable -Wno-unused-parameter -Wno-unused-variable \
+	-Wno-single-bit-bitfield-constant-conversion \
 	-finline-limit=300 -finline-functions -fno-inline-functions-called-once
 
 # list of files to be excluded
