@@ -1,0 +1,1343 @@
+// Copyright (C) 2026 BlissLabs
+
+// Auto-generated Soong configuration for ALSA config files
+
+
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_alsa_conf",
+    src: "alsa.conf",
+    sub_dir: "alsa",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_alsa_conf",
+    src: "alsa.conf",
+    sub_dir: "alsa",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_ctl_default_conf",
+    src: "ctl/default.conf",
+    sub_dir: "alsa/ctl",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_ctl_default_conf",
+    src: "ctl/default.conf",
+    sub_dir: "alsa/ctl",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_AACI_conf",
+    src: "cards/AACI.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_AACI_conf",
+    src: "cards/AACI.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ATIIXP_MODEM_conf",
+    src: "cards/ATIIXP-MODEM.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ATIIXP_MODEM_conf",
+    src: "cards/ATIIXP-MODEM.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ATIIXP_SPDMA_conf",
+    src: "cards/ATIIXP-SPDMA.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ATIIXP_SPDMA_conf",
+    src: "cards/ATIIXP-SPDMA.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ATIIXP_conf",
+    src: "cards/ATIIXP.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ATIIXP_conf",
+    src: "cards/ATIIXP.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_AU8810_conf",
+    src: "cards/AU8810.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_AU8810_conf",
+    src: "cards/AU8810.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_AU8820_conf",
+    src: "cards/AU8820.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_AU8820_conf",
+    src: "cards/AU8820.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_AU8830_conf",
+    src: "cards/AU8830.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_AU8830_conf",
+    src: "cards/AU8830.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Audigy_conf",
+    src: "cards/Audigy.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Audigy_conf",
+    src: "cards/Audigy.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Audigy2_conf",
+    src: "cards/Audigy2.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Audigy2_conf",
+    src: "cards/Audigy2.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Aureon51_conf",
+    src: "cards/Aureon51.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Aureon51_conf",
+    src: "cards/Aureon51.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Aureon71_conf",
+    src: "cards/Aureon71.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Aureon71_conf",
+    src: "cards/Aureon71.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CA0106_conf",
+    src: "cards/CA0106.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CA0106_conf",
+    src: "cards/CA0106.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CMI8338_SWIEC_conf",
+    src: "cards/CMI8338-SWIEC.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CMI8338_SWIEC_conf",
+    src: "cards/CMI8338-SWIEC.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CMI8338_conf",
+    src: "cards/CMI8338.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CMI8338_conf",
+    src: "cards/CMI8338.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CMI8738_MC6_conf",
+    src: "cards/CMI8738-MC6.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CMI8738_MC6_conf",
+    src: "cards/CMI8738-MC6.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CMI8738_MC8_conf",
+    src: "cards/CMI8738-MC8.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CMI8738_MC8_conf",
+    src: "cards/CMI8738-MC8.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CMI8788_conf",
+    src: "cards/CMI8788.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CMI8788_conf",
+    src: "cards/CMI8788.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_CS46xx_conf",
+    src: "cards/CS46xx.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_CS46xx_conf",
+    src: "cards/CS46xx.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_EMU10K1_conf",
+    src: "cards/EMU10K1.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_EMU10K1_conf",
+    src: "cards/EMU10K1.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_EMU10K1X_conf",
+    src: "cards/EMU10K1X.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_EMU10K1X_conf",
+    src: "cards/EMU10K1X.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ENS1370_conf",
+    src: "cards/ENS1370.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ENS1370_conf",
+    src: "cards/ENS1370.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ENS1371_conf",
+    src: "cards/ENS1371.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ENS1371_conf",
+    src: "cards/ENS1371.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ES1968_conf",
+    src: "cards/ES1968.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ES1968_conf",
+    src: "cards/ES1968.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Echo_Echo3G_conf",
+    src: "cards/Echo_Echo3G.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Echo_Echo3G_conf",
+    src: "cards/Echo_Echo3G.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_FM801_conf",
+    src: "cards/FM801.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_FM801_conf",
+    src: "cards/FM801.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_FWSpeakers_conf",
+    src: "cards/FWSpeakers.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_FWSpeakers_conf",
+    src: "cards/FWSpeakers.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_FireWave_conf",
+    src: "cards/FireWave.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_FireWave_conf",
+    src: "cards/FireWave.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_GUS_conf",
+    src: "cards/GUS.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_GUS_conf",
+    src: "cards/GUS.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_HDA_Intel_conf",
+    src: "cards/HDA-Intel.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_HDA_Intel_conf",
+    src: "cards/HDA-Intel.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_HdmiLpeAudio_conf",
+    src: "cards/HdmiLpeAudio.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_HdmiLpeAudio_conf",
+    src: "cards/HdmiLpeAudio.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ICE1712_conf",
+    src: "cards/ICE1712.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ICE1712_conf",
+    src: "cards/ICE1712.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ICE1724_conf",
+    src: "cards/ICE1724.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ICE1724_conf",
+    src: "cards/ICE1724.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ICH_MODEM_conf",
+    src: "cards/ICH-MODEM.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ICH_MODEM_conf",
+    src: "cards/ICH-MODEM.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ICH_conf",
+    src: "cards/ICH.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ICH_conf",
+    src: "cards/ICH.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_ICH4_conf",
+    src: "cards/ICH4.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_ICH4_conf",
+    src: "cards/ICH4.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Loopback_conf",
+    src: "cards/Loopback.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Loopback_conf",
+    src: "cards/Loopback.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_Maestro3_conf",
+    src: "cards/Maestro3.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_Maestro3_conf",
+    src: "cards/Maestro3.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_NFORCE_conf",
+    src: "cards/NFORCE.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_NFORCE_conf",
+    src: "cards/NFORCE.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_PC_Speaker_conf",
+    src: "cards/PC-Speaker.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_PC_Speaker_conf",
+    src: "cards/PC-Speaker.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_PMac_conf",
+    src: "cards/PMac.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_PMac_conf",
+    src: "cards/PMac.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_PMacToonie_conf",
+    src: "cards/PMacToonie.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_PMacToonie_conf",
+    src: "cards/PMacToonie.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_PS3_conf",
+    src: "cards/PS3.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_PS3_conf",
+    src: "cards/PS3.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_RME9636_conf",
+    src: "cards/RME9636.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_RME9636_conf",
+    src: "cards/RME9636.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_RME9652_conf",
+    src: "cards/RME9652.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_RME9652_conf",
+    src: "cards/RME9652.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_SB_XFi_conf",
+    src: "cards/SB-XFi.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_SB_XFi_conf",
+    src: "cards/SB-XFi.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_SI7018_conf",
+    src: "cards/SI7018.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_SI7018_conf",
+    src: "cards/SI7018.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_TRID4DWAVENX_conf",
+    src: "cards/TRID4DWAVENX.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_TRID4DWAVENX_conf",
+    src: "cards/TRID4DWAVENX.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_USB_Audio_conf",
+    src: "cards/USB-Audio.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_USB_Audio_conf",
+    src: "cards/USB-Audio.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VIA686A_conf",
+    src: "cards/VIA686A.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VIA686A_conf",
+    src: "cards/VIA686A.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VIA8233_conf",
+    src: "cards/VIA8233.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VIA8233_conf",
+    src: "cards/VIA8233.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VIA8233A_conf",
+    src: "cards/VIA8233A.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VIA8233A_conf",
+    src: "cards/VIA8233A.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VIA8237_conf",
+    src: "cards/VIA8237.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VIA8237_conf",
+    src: "cards/VIA8237.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VX222_conf",
+    src: "cards/VX222.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VX222_conf",
+    src: "cards/VX222.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VXPocket_conf",
+    src: "cards/VXPocket.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VXPocket_conf",
+    src: "cards/VXPocket.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_VXPocket440_conf",
+    src: "cards/VXPocket440.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_VXPocket440_conf",
+    src: "cards/VXPocket440.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_YMF744_conf",
+    src: "cards/YMF744.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_YMF744_conf",
+    src: "cards/YMF744.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_aliases_conf",
+    src: "cards/aliases.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_aliases_conf",
+    src: "cards/aliases.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_pistachio_card_conf",
+    src: "cards/pistachio-card.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_pistachio_card_conf",
+    src: "cards/pistachio-card.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_cards_vc4_hdmi_conf",
+    src: "cards/vc4-hdmi.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_cards_vc4_hdmi_conf",
+    src: "cards/vc4-hdmi.conf",
+    sub_dir: "alsa/cards",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_center_lfe_conf",
+    src: "pcm/center_lfe.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_center_lfe_conf",
+    src: "pcm/center_lfe.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_default_conf",
+    src: "pcm/default.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_default_conf",
+    src: "pcm/default.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_dmix_conf",
+    src: "pcm/dmix.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_dmix_conf",
+    src: "pcm/dmix.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_dpl_conf",
+    src: "pcm/dpl.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_dpl_conf",
+    src: "pcm/dpl.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_dsnoop_conf",
+    src: "pcm/dsnoop.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_dsnoop_conf",
+    src: "pcm/dsnoop.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_front_conf",
+    src: "pcm/front.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_front_conf",
+    src: "pcm/front.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_hdmi_conf",
+    src: "pcm/hdmi.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_hdmi_conf",
+    src: "pcm/hdmi.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_iec958_conf",
+    src: "pcm/iec958.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_iec958_conf",
+    src: "pcm/iec958.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_modem_conf",
+    src: "pcm/modem.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_modem_conf",
+    src: "pcm/modem.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_rear_conf",
+    src: "pcm/rear.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_rear_conf",
+    src: "pcm/rear.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_side_conf",
+    src: "pcm/side.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_side_conf",
+    src: "pcm/side.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_surround21_conf",
+    src: "pcm/surround21.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_surround21_conf",
+    src: "pcm/surround21.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_surround40_conf",
+    src: "pcm/surround40.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_surround40_conf",
+    src: "pcm/surround40.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_surround41_conf",
+    src: "pcm/surround41.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_surround41_conf",
+    src: "pcm/surround41.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_surround50_conf",
+    src: "pcm/surround50.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_surround50_conf",
+    src: "pcm/surround50.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_surround51_conf",
+    src: "pcm/surround51.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_surround51_conf",
+    src: "pcm/surround51.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_sys_pcm_surround71_conf",
+    src: "pcm/surround71.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+}
+
+prebuilt_usr_share {
+    name: "alsa_conf_ven_pcm_surround71_conf",
+    src: "pcm/surround71.conf",
+    sub_dir: "alsa/pcm",
+    filename_from_src: true,
+    vendor: true,
+}
+
+phony {
+    name: "libasound_config_system",
+    required: [
+        "alsa_conf_sys_alsa_conf",
+        "alsa_conf_sys_ctl_default_conf",
+        "alsa_conf_sys_cards_AACI_conf",
+        "alsa_conf_sys_cards_ATIIXP_MODEM_conf",
+        "alsa_conf_sys_cards_ATIIXP_SPDMA_conf",
+        "alsa_conf_sys_cards_ATIIXP_conf",
+        "alsa_conf_sys_cards_AU8810_conf",
+        "alsa_conf_sys_cards_AU8820_conf",
+        "alsa_conf_sys_cards_AU8830_conf",
+        "alsa_conf_sys_cards_Audigy_conf",
+        "alsa_conf_sys_cards_Audigy2_conf",
+        "alsa_conf_sys_cards_Aureon51_conf",
+        "alsa_conf_sys_cards_Aureon71_conf",
+        "alsa_conf_sys_cards_CA0106_conf",
+        "alsa_conf_sys_cards_CMI8338_SWIEC_conf",
+        "alsa_conf_sys_cards_CMI8338_conf",
+        "alsa_conf_sys_cards_CMI8738_MC6_conf",
+        "alsa_conf_sys_cards_CMI8738_MC8_conf",
+        "alsa_conf_sys_cards_CMI8788_conf",
+        "alsa_conf_sys_cards_CS46xx_conf",
+        "alsa_conf_sys_cards_EMU10K1_conf",
+        "alsa_conf_sys_cards_EMU10K1X_conf",
+        "alsa_conf_sys_cards_ENS1370_conf",
+        "alsa_conf_sys_cards_ENS1371_conf",
+        "alsa_conf_sys_cards_ES1968_conf",
+        "alsa_conf_sys_cards_Echo_Echo3G_conf",
+        "alsa_conf_sys_cards_FM801_conf",
+        "alsa_conf_sys_cards_FWSpeakers_conf",
+        "alsa_conf_sys_cards_FireWave_conf",
+        "alsa_conf_sys_cards_GUS_conf",
+        "alsa_conf_sys_cards_HDA_Intel_conf",
+        "alsa_conf_sys_cards_HdmiLpeAudio_conf",
+        "alsa_conf_sys_cards_ICE1712_conf",
+        "alsa_conf_sys_cards_ICE1724_conf",
+        "alsa_conf_sys_cards_ICH_MODEM_conf",
+        "alsa_conf_sys_cards_ICH_conf",
+        "alsa_conf_sys_cards_ICH4_conf",
+        "alsa_conf_sys_cards_Loopback_conf",
+        "alsa_conf_sys_cards_Maestro3_conf",
+        "alsa_conf_sys_cards_NFORCE_conf",
+        "alsa_conf_sys_cards_PC_Speaker_conf",
+        "alsa_conf_sys_cards_PMac_conf",
+        "alsa_conf_sys_cards_PMacToonie_conf",
+        "alsa_conf_sys_cards_PS3_conf",
+        "alsa_conf_sys_cards_RME9636_conf",
+        "alsa_conf_sys_cards_RME9652_conf",
+        "alsa_conf_sys_cards_SB_XFi_conf",
+        "alsa_conf_sys_cards_SI7018_conf",
+        "alsa_conf_sys_cards_TRID4DWAVENX_conf",
+        "alsa_conf_sys_cards_USB_Audio_conf",
+        "alsa_conf_sys_cards_VIA686A_conf",
+        "alsa_conf_sys_cards_VIA8233_conf",
+        "alsa_conf_sys_cards_VIA8233A_conf",
+        "alsa_conf_sys_cards_VIA8237_conf",
+        "alsa_conf_sys_cards_VX222_conf",
+        "alsa_conf_sys_cards_VXPocket_conf",
+        "alsa_conf_sys_cards_VXPocket440_conf",
+        "alsa_conf_sys_cards_YMF744_conf",
+        "alsa_conf_sys_cards_aliases_conf",
+        "alsa_conf_sys_cards_pistachio_card_conf",
+        "alsa_conf_sys_cards_vc4_hdmi_conf",
+        "alsa_conf_sys_pcm_center_lfe_conf",
+        "alsa_conf_sys_pcm_default_conf",
+        "alsa_conf_sys_pcm_dmix_conf",
+        "alsa_conf_sys_pcm_dpl_conf",
+        "alsa_conf_sys_pcm_dsnoop_conf",
+        "alsa_conf_sys_pcm_front_conf",
+        "alsa_conf_sys_pcm_hdmi_conf",
+        "alsa_conf_sys_pcm_iec958_conf",
+        "alsa_conf_sys_pcm_modem_conf",
+        "alsa_conf_sys_pcm_rear_conf",
+        "alsa_conf_sys_pcm_side_conf",
+        "alsa_conf_sys_pcm_surround21_conf",
+        "alsa_conf_sys_pcm_surround40_conf",
+        "alsa_conf_sys_pcm_surround41_conf",
+        "alsa_conf_sys_pcm_surround50_conf",
+        "alsa_conf_sys_pcm_surround51_conf",
+        "alsa_conf_sys_pcm_surround71_conf",
+    ],
+}
+
+phony {
+    name: "libasound_config_vendor",
+    required: [
+        "alsa_conf_ven_alsa_conf",
+        "alsa_conf_ven_ctl_default_conf",
+        "alsa_conf_ven_cards_AACI_conf",
+        "alsa_conf_ven_cards_ATIIXP_MODEM_conf",
+        "alsa_conf_ven_cards_ATIIXP_SPDMA_conf",
+        "alsa_conf_ven_cards_ATIIXP_conf",
+        "alsa_conf_ven_cards_AU8810_conf",
+        "alsa_conf_ven_cards_AU8820_conf",
+        "alsa_conf_ven_cards_AU8830_conf",
+        "alsa_conf_ven_cards_Audigy_conf",
+        "alsa_conf_ven_cards_Audigy2_conf",
+        "alsa_conf_ven_cards_Aureon51_conf",
+        "alsa_conf_ven_cards_Aureon71_conf",
+        "alsa_conf_ven_cards_CA0106_conf",
+        "alsa_conf_ven_cards_CMI8338_SWIEC_conf",
+        "alsa_conf_ven_cards_CMI8338_conf",
+        "alsa_conf_ven_cards_CMI8738_MC6_conf",
+        "alsa_conf_ven_cards_CMI8738_MC8_conf",
+        "alsa_conf_ven_cards_CMI8788_conf",
+        "alsa_conf_ven_cards_CS46xx_conf",
+        "alsa_conf_ven_cards_EMU10K1_conf",
+        "alsa_conf_ven_cards_EMU10K1X_conf",
+        "alsa_conf_ven_cards_ENS1370_conf",
+        "alsa_conf_ven_cards_ENS1371_conf",
+        "alsa_conf_ven_cards_ES1968_conf",
+        "alsa_conf_ven_cards_Echo_Echo3G_conf",
+        "alsa_conf_ven_cards_FM801_conf",
+        "alsa_conf_ven_cards_FWSpeakers_conf",
+        "alsa_conf_ven_cards_FireWave_conf",
+        "alsa_conf_ven_cards_GUS_conf",
+        "alsa_conf_ven_cards_HDA_Intel_conf",
+        "alsa_conf_ven_cards_HdmiLpeAudio_conf",
+        "alsa_conf_ven_cards_ICE1712_conf",
+        "alsa_conf_ven_cards_ICE1724_conf",
+        "alsa_conf_ven_cards_ICH_MODEM_conf",
+        "alsa_conf_ven_cards_ICH_conf",
+        "alsa_conf_ven_cards_ICH4_conf",
+        "alsa_conf_ven_cards_Loopback_conf",
+        "alsa_conf_ven_cards_Maestro3_conf",
+        "alsa_conf_ven_cards_NFORCE_conf",
+        "alsa_conf_ven_cards_PC_Speaker_conf",
+        "alsa_conf_ven_cards_PMac_conf",
+        "alsa_conf_ven_cards_PMacToonie_conf",
+        "alsa_conf_ven_cards_PS3_conf",
+        "alsa_conf_ven_cards_RME9636_conf",
+        "alsa_conf_ven_cards_RME9652_conf",
+        "alsa_conf_ven_cards_SB_XFi_conf",
+        "alsa_conf_ven_cards_SI7018_conf",
+        "alsa_conf_ven_cards_TRID4DWAVENX_conf",
+        "alsa_conf_ven_cards_USB_Audio_conf",
+        "alsa_conf_ven_cards_VIA686A_conf",
+        "alsa_conf_ven_cards_VIA8233_conf",
+        "alsa_conf_ven_cards_VIA8233A_conf",
+        "alsa_conf_ven_cards_VIA8237_conf",
+        "alsa_conf_ven_cards_VX222_conf",
+        "alsa_conf_ven_cards_VXPocket_conf",
+        "alsa_conf_ven_cards_VXPocket440_conf",
+        "alsa_conf_ven_cards_YMF744_conf",
+        "alsa_conf_ven_cards_aliases_conf",
+        "alsa_conf_ven_cards_pistachio_card_conf",
+        "alsa_conf_ven_cards_vc4_hdmi_conf",
+        "alsa_conf_ven_pcm_center_lfe_conf",
+        "alsa_conf_ven_pcm_default_conf",
+        "alsa_conf_ven_pcm_dmix_conf",
+        "alsa_conf_ven_pcm_dpl_conf",
+        "alsa_conf_ven_pcm_dsnoop_conf",
+        "alsa_conf_ven_pcm_front_conf",
+        "alsa_conf_ven_pcm_hdmi_conf",
+        "alsa_conf_ven_pcm_iec958_conf",
+        "alsa_conf_ven_pcm_modem_conf",
+        "alsa_conf_ven_pcm_rear_conf",
+        "alsa_conf_ven_pcm_side_conf",
+        "alsa_conf_ven_pcm_surround21_conf",
+        "alsa_conf_ven_pcm_surround40_conf",
+        "alsa_conf_ven_pcm_surround41_conf",
+        "alsa_conf_ven_pcm_surround50_conf",
+        "alsa_conf_ven_pcm_surround51_conf",
+        "alsa_conf_ven_pcm_surround71_conf",
+    ],
+}

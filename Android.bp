@@ -1,0 +1,112 @@
+//
+// Copyright (C) 2021 The Android-x86 Open Source Project
+// Copyright (C) 2026 BlissLabs
+//
+// Licensed under the GNU Lesser General Public License Version 2.1.
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.gnu.org/licenses/lgpl.html
+//
+
+genrule {
+    name: "libasound_gen_headers",
+    srcs: [
+        "configure.ac",
+        "include/asoundlib-head.h",
+        "include/asoundlib-tail.h",
+    ],
+    out: [
+        "alsa/asoundlib.h",
+        "alsa/version.h",
+    ],
+    cmd: "mkdir -p $(genDir)/alsa && " +
+        "ver=$$(sed -n 's/.*AC_INIT.*\\[\\([0-9.]*\\)\\].*/\\1/p' $(location configure.ac)) && " +
+        "maj=$$(echo \"$$ver\" | cut -d. -f1) && " +
+        "min=$$(echo \"$$ver\" | cut -d. -f2) && " +
+        "sub=$$(echo \"$$ver\" | cut -d. -f3) && " +
+        "echo \"#define SND_LIB_MAJOR $$maj\" > $(genDir)/alsa/version.h && " +
+        "echo \"#define SND_LIB_MINOR $$min\" >> $(genDir)/alsa/version.h && " +
+        "echo \"#define SND_LIB_SUBMINOR $$sub\" >> $(genDir)/alsa/version.h && " +
+        "echo \"#define SND_LIB_EXTRAVER 1000000\" >> $(genDir)/alsa/version.h && " +
+        "echo \"#define SND_LIB_VER(maj, min, sub) (((maj)<<16)|((min)<<8)|(sub))\" >> $(genDir)/alsa/version.h && " +
+        "echo \"#define SND_LIB_VERSION SND_LIB_VER(SND_LIB_MAJOR, SND_LIB_MINOR, SND_LIB_SUBMINOR)\" >> $(genDir)/alsa/version.h && " +
+        "echo \"#define SND_LIB_VERSION_STR \\\"$$ver\\\"\" >> $(genDir)/alsa/version.h && " +
+        "cat $(location include/asoundlib-head.h) > $(genDir)/alsa/asoundlib.h && " +
+        "sed -n '/.*\\(#include <[ae].*.h>\\).*/s//\\1/p' $(location configure.ac) >> $(genDir)/alsa/asoundlib.h && " +
+        "cat $(location include/asoundlib-tail.h) >> $(genDir)/alsa/asoundlib.h",
+}
+
+genrule {
+    name: "libasound_gen_internal_headers",
+    srcs: [
+        "configure.ac",
+        "include/asoundlib-head.h",
+        "include/asoundlib-tail.h",
+    ],
+    out: [
+        "asoundlib.h",
+        "version.h",
+    ],
+    cmd: "ver=$$(sed -n 's/.*AC_INIT.*\\[\\([0-9.]*\\)\\].*/\\1/p' $(location configure.ac)) && " +
+        "maj=$$(echo \"$$ver\" | cut -d. -f1) && " +
+        "min=$$(echo \"$$ver\" | cut -d. -f2) && " +
+        "sub=$$(echo \"$$ver\" | cut -d. -f3) && " +
+        "echo \"#define SND_LIB_MAJOR $$maj\" > $(genDir)/version.h && " +
+        "echo \"#define SND_LIB_MINOR $$min\" >> $(genDir)/version.h && " +
+        "echo \"#define SND_LIB_SUBMINOR $$sub\" >> $(genDir)/version.h && " +
+        "echo \"#define SND_LIB_EXTRAVER 1000000\" >> $(genDir)/version.h && " +
+        "echo \"#define SND_LIB_VER(maj, min, sub) (((maj)<<16)|((min)<<8)|(sub))\" >> $(genDir)/version.h && " +
+        "echo \"#define SND_LIB_VERSION SND_LIB_VER(SND_LIB_MAJOR, SND_LIB_MINOR, SND_LIB_SUBMINOR)\" >> $(genDir)/version.h && " +
+        "echo \"#define SND_LIB_VERSION_STR \\\"$$ver\\\"\" >> $(genDir)/version.h && " +
+        "cat $(location include/asoundlib-head.h) > $(genDir)/asoundlib.h && " +
+        "sed -n '/.*\\(#include <[ae].*.h>\\).*/s//\\1/p' $(location configure.ac) >> $(genDir)/asoundlib.h && " +
+        "cat $(location include/asoundlib-tail.h) >> $(genDir)/asoundlib.h",
+}
+
+cc_library_shared {
+    name: "libasound",
+    vendor_available: true,
+    export_include_dirs: [
+        "include",
+        "android",
+    ],
+    generated_headers: [
+        "libasound_gen_headers",
+        "libasound_gen_internal_headers",
+    ],
+    export_generated_headers: [
+        "libasound_gen_headers",
+    ],
+    srcs: [
+        "src/**/*.c",
+    ],
+    exclude_srcs: [
+        "src/alisp/alisp_snd.c",
+        "src/compat/hsearch_r.c",
+        "src/pcm/pcm_dmix_*.c",
+        "src/pcm/scopes/level.c",
+    ],
+    cflags: [
+        "-DPIC",
+        "-O2",
+        "-Wno-absolute-value",
+        "-Wno-address-of-packed-member",
+        "-Wno-missing-braces",
+        "-Wno-missing-field-initializers",
+        "-Wno-pointer-arith",
+        "-Wno-pointer-bool-conversion",
+        "-Wno-sign-compare",
+        "-Wno-unused-function",
+        "-Wno-unused-const-variable",
+        "-Wno-unused-parameter",
+        "-Wno-unused-variable",
+    ],
+    shared_libs: [
+        "libdl",
+    ],
+    required: [
+        "libasound_config_system",
+        "libasound_config_vendor",
+    ],
+}
