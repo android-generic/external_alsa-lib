@@ -5,16 +5,27 @@
 #define ALOAD_DEVICE_DIRECTORY "/dev/"
 
 /* directory containing ALSA configuration database */
+#if defined(__ANDROID_VNDK__) || defined(__ANDROID_VENDOR__)
+#define ALSA_CONFIG_DIR "/vendor/usr/share/alsa"
+#ifdef __LP64__
+#define ALSA_PLUGIN_DIR "/vendor/lib64/alsa-lib"
+#else
+#define ALSA_PLUGIN_DIR "/vendor/lib/alsa-lib"
+#endif
+#else
 #define ALSA_CONFIG_DIR "/system/usr/share/alsa"
+#ifdef __LP64__
+#define ALSA_PLUGIN_DIR "/system/lib64/alsa-lib"
+#else
+#define ALSA_PLUGIN_DIR "/system/lib/alsa-lib"
+#endif
+#endif
 
 /* Enable assert at error message handler */
 /* #undef ALSA_DEBUG_ASSERT */
 
 /* Directory with ALSA device files */
 #define ALSA_DEVICE_DIRECTORY "/dev/snd/"
-
-/* directory containing ALSA add-on modules */
-#define ALSA_PLUGIN_DIR "/system/usr/lib/alsa-lib"
 
 /* Build hwdep component */
 #define BUILD_HWDEP "1"
