@@ -101,6 +101,7 @@ cc_library_shared {
         "-Wno-unused-const-variable",
         "-Wno-unused-parameter",
         "-Wno-unused-variable",
+        "-Wno-single-bit-bitfield-constant-conversion",
     ],
     shared_libs: [
         "libdl",
